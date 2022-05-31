@@ -5,13 +5,13 @@ namespace Navigation
 {
     public class MapFight : MonoBehaviour
     {
-        [SerializeField] private Fight fight;
+        [SerializeField] private FightDetails fightDetails;
         
         [Button]
         public void SelectThisLevel()
         {
             if (Application.isPlaying)
-                GameManager.Instance.SelectFight(fight);
+                GameManager.Instance.SelectFight(fightDetails);
         }
     }
 }

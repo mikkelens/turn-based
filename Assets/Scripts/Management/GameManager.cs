@@ -13,7 +13,7 @@ namespace Navigation
     }
     
     [Serializable]
-    public class Fight
+    public class FightDetails
     {
         public int buildIndex;
         public string fightName;
@@ -26,7 +26,7 @@ namespace Navigation
         [SerializeField] private int mapSceneIndex;
         
         private GameState _state;
-        private Fight _currentFight;
+        private FightDetails _currentFightDetails;
 
         private void Awake()
         {
@@ -39,26 +39,26 @@ namespace Navigation
             else Destroy(gameObject);
         }
 
-        public void SelectFight(Fight fight)
+        public void SelectFight(FightDetails fightDetails)
         {
-            _currentFight = fight;
+            _currentFightDetails = fightDetails;
         }
         
         [Button, ShowIf("@_state == GameState.MapScreen"), DisableIf("@_currentFight == null")]  
         public void EnterFight()
         {
-            if (_currentFight == null) return;
+            if (_currentFightDetails == null) return;
             if (_state == GameState.Fight) return;
 
             _state = GameState.Fight;
-            LoadScene(_currentFight.buildIndex);
+            LoadScene(_currentFightDetails.buildIndex);
         }
         [Button, ShowIf("@_state == GameState.Fight")]
         private void ExitFight()
         {
             if (_state == GameState.MapScreen) return;
             
-            _currentFight = null;
+            _currentFightDetails = null;
             _state = GameState.MapScreen;
             LoadScene(mapSceneIndex);
         }

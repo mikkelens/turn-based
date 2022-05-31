@@ -1,18 +1,24 @@
-﻿using System.Linq;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gameplay
 {
+    [SelectionBase]
     public class Entity : MonoBehaviour
     {
         // stats
-        [SerializeField] protected int startingHealth = 5;
-        [SerializeField] protected int attackDamage = 2;
-        private int _currentHealth;
-        
+        [SerializeField] private int startingHealth = 5;
+        [SerializeField] private int attackDamage = 2;
         [SerializeField] private Animator animator;
+        private int _currentHealth;
 
+        [Button]
+        public void ResetHealth()
+        {
+            Debug.Log($"{name} health reset to {startingHealth.ToString()}, was {_currentHealth.ToString()}");
+            _currentHealth = startingHealth;
+        }
+        
         public void Attack(Entity target)
         {
             PlayAttackAnimation();
@@ -22,9 +28,8 @@ namespace Gameplay
 
         private void TakeDamage(int amount)
         {
-            Debug.Log($"Entity {name} was damaged by {amount.ToString()}");
-            PlayDamageAnimation();
             _currentHealth -= amount;
+            PlayDamageAnimation();
             if (_currentHealth <= 0)
             {
                 Die();
@@ -37,9 +42,12 @@ namespace Gameplay
         
         protected virtual void Die()
         {
+            Debug.Log($"{name} was killed.");
             PlayDeathAnimation();
-            Debug.Log($"Entity {name} was killed.");
         }
-        private void PlayDeathAnimation() { }
+        private void PlayDeathAnimation()
+        {
+            Destroy(gameObject);
+        }
     }
 }

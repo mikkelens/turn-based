@@ -6,7 +6,9 @@ namespace Gameplay.Management
     public enum FightState
     {
         PlayerTurn,
+        EnemyWaiting,
         EnemyTurn,
+        Ended,
     }
     public enum Actions
     {
@@ -30,7 +32,7 @@ namespace Gameplay.Management
             else Debug.Log("Two fightmanagers in scene!");
         }
 
-        private FightState _state;
+        [ReadOnly] private FightState _state;
         
         [SerializeField] private Enemy enemy;
         
@@ -40,30 +42,35 @@ namespace Gameplay.Management
         {
             _player = Player.Instance;
             if (_player == null) Debug.Log("Player missing?");
+            
+            _player.ResetHealth();
+            enemy.ResetHealth();
         }
 
         [Button, EnableIf("@_state == FightState.PlayerTurn")]
         private void PlayerAttacks()
         {
             if (_state != FightState.PlayerTurn) return;
-            _player.Attack(enemy);
             _state = FightState.EnemyTurn;
+            _player.Attack(enemy);
         }
         [Button, EnableIf("@_state == FightState.EnemyTurn")]
         private void EnemyAttacks()
         {
             if (_state != FightState.EnemyTurn) return;
-            enemy.Attack(_player);
             _state = FightState.PlayerTurn;
+            enemy.Attack(_player);
         }
 
         public void WinBattle()
         {
             Debug.Log("Player won!");
+            _state = FightState.Ended;
         }
         public void LoseBattle()
         {
             Debug.Log("Player lost.");
+            _state = FightState.Ended;
         }
     }
 }
