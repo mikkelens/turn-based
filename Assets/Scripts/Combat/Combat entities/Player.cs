@@ -1,4 +1,5 @@
-﻿using Gameplay.Management;
+﻿using System.Collections.Generic;
+using Gameplay.Management;
 using UnityEngine;
 
 namespace Gameplay
@@ -6,6 +7,7 @@ namespace Gameplay
     public class Player : Entity
     {
         public static Player Instance; // because player moves from scene to scene
+
         private void Awake()
         {
             if (Instance == null)

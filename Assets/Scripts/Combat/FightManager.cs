@@ -47,19 +47,24 @@ namespace Gameplay.Management
             enemy.ResetHealth();
         }
 
+        //todo: make player able to select (show move info on screen), also: make moves in the editor
+        
         [Button, EnableIf("@_state == FightState.PlayerTurn")]
-        private void PlayerAttacks()
+        private void RandomPlayerMove()
         {
             if (_state != FightState.PlayerTurn) return;
             _state = FightState.EnemyTurn;
-            _player.Attack(enemy);
+            _player.SelectRandomMove();
+            _player.UseMove();
         }
+        
         [Button, EnableIf("@_state == FightState.EnemyTurn")]
-        private void EnemyAttacks()
+        private void RandomEnemyMove()
         {
             if (_state != FightState.EnemyTurn) return;
             _state = FightState.PlayerTurn;
-            enemy.Attack(_player);
+            enemy.SelectRandomMove();
+            enemy.UseMove();
         }
 
         public void WinBattle()
