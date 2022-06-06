@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,14 +10,14 @@ namespace Combat.Entities
     public class Entity : MonoBehaviour
     {
         // stats
-        [SerializeField] private List<MoveData> moves;
+        [SerializeField] private List<MoveSettings> moveSettings;
         [SerializeField] private int startingHealth = 5;
         [SerializeField] private Animator animator;
 
         private int _health;
-
-
-        public List<MoveData> GetMoves => moves;
+        
+        public List<MoveSettings> GetAllMoveSettings => moveSettings;
+        public List<Move> GetAllMoves => moveSettings.Select(settings => settings.Data).ToList();
 
         public void Heal(int amount)
         {
@@ -38,18 +39,16 @@ namespace Combat.Entities
 
         public IEnumerator UseRandomMove(Entity target)
         {
-            if (moves.Count != 0)
+            if (moveSettings.Count != 0)
             {
-                int index = Random.Range(0, moves.Count - 1);
-                yield return StartCoroutine(UseMove(index, target));
+                int index = Random.Range(0, moveSettings.Count - 1);
+                yield return StartCoroutine(UseMove(moveSettings[0].Data, target));
             }
         }
-        public IEnumerator UseMove(int moveIndex, Entity target)
+        public IEnumerator UseMove(Move move, Entity target)
         {
-            MoveData moveData = moves[moveIndex];
-            
-            target.Damage(moveData.damage);
-            Heal(moveData.healing);
+            target.Damage(move.damage);
+            Heal(move.healing);
             yield break;
         }
     }

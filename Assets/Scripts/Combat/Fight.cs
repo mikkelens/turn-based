@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Combat
 {
     // not a persistent manager, only lives in fight / scene
-    public class Fight : MonoBehaviour
+    public class FightManager : MonoBehaviour
     {
-        public static Fight Instance; // because there will only be one per scene
+        public static FightManager Instance; // because there will only be one per scene
 
         private void Awake()
         {
@@ -21,7 +21,7 @@ namespace Combat
         
         [SerializeField] private Enemy enemy;
         private Player _player;
-        private int _chosenMoveIndex;
+        private Move? _chosenMove;
         
         private void Start()
         {
@@ -35,9 +35,9 @@ namespace Combat
         }
         
         [Button]
-        public void ChoosePlayerMove(int moveIndex)
+        public void ChoosePlayerMove(Move move)
         {
-            _chosenMoveIndex = moveIndex;
+            _chosenMove = move;
         }
 
         private enum FightState
@@ -68,9 +68,12 @@ namespace Combat
         
         private IEnumerator PlayerTurn()
         {
-            _chosenMoveIndex = -1;
-            yield return new WaitUntil(() => _chosenMoveIndex != -1); // wait for player to choose move (happens through UI)
-            yield return StartCoroutine(_player.UseMove(_chosenMoveIndex, enemy)); // wait for move to finish
+            _chosenMove = null;
+            
+            // todo: show move options on screen
+            
+            yield return new WaitUntil(() => _chosenMove != null); // wait for player to choose move (happens through UI)
+            yield return StartCoroutine(_player.UseMove(_chosenMove!.Value, enemy)); // wait for move to finish
         }
         private IEnumerator EnemyTurn()
         {
