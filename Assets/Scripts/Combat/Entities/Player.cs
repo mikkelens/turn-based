@@ -18,7 +18,5 @@ namespace Combat.Entities
 
         #region Entity specifications/overrides
         #endregion
-
-        
     }
 }
