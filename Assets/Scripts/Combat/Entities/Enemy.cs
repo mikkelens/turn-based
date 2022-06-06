@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Management
+﻿namespace Combat.Entities
 {
     public class Enemy : Entity
     {
@@ -6,7 +6,7 @@
         protected override void Die()
         {
             base.Die();
-            FightManager.Instance.WinBattle(); // should let fightmanager decide this
+            Fight.Instance.WinBattle(); // should let fightmanager decide this
         }
         #endregion
     }

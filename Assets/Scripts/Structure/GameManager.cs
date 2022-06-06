@@ -1,9 +1,8 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Navigation
+namespace Structure
 {
     public enum GameState
     {
@@ -11,14 +10,7 @@ namespace Navigation
         MapScreen,
         Fight,
     }
-    
-    [Serializable]
-    public class FightDetails
-    {
-        public int buildIndex;
-        public string fightName;
-    }
-    
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;

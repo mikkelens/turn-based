@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Gameplay.Management;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Gameplay
+namespace Combat.Entities
 {
     public class Player : Entity
     {
@@ -19,11 +17,8 @@ namespace Gameplay
         }
 
         #region Entity specifications/overrides
-        protected override void Die()
-        {
-            base.Die();
-            FightManager.Instance.LoseBattle();
-        }
         #endregion
+
+        
     }
 }
