@@ -188,15 +188,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
       propertyPath: moves.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
       propertyPath: moves.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 0ec76f13081ec164bb6d379c58651db9, type: 2}
+      objectReference: {fileID: 11400000, guid: e92911da367599c4c99605ae047d84b7, type: 2}
+    - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
+      propertyPath: moves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1818a26416bb10d41924bdd061b53b63, type: 2}
+    - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
+      propertyPath: moves.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 06a5c2e1c1cea06488b9091ce61fbc6a, type: 2}
+    - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
+      propertyPath: moves.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d2a465348aeaa514d80337fcd6276c9d, type: 2}
+    - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
+      propertyPath: moves.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: d2a465348aeaa514d80337fcd6276c9d, type: 2}
     - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
       propertyPath: moveSettings.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7264787816916712193, guid: 9ee974d3a6bac034b8c46a5aaee9581f, type: 3}
       propertyPath: moveSettings.Array.data[0]
@@ -619,6 +635,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1673361261014834550, guid: f198b0039b7755a4bb9bf147728293d7, type: 3}
+      propertyPath: moves.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673361261014834550, guid: f198b0039b7755a4bb9bf147728293d7, type: 3}
+      propertyPath: moves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1818a26416bb10d41924bdd061b53b63, type: 2}
     - target: {fileID: 2357253880734542658, guid: f198b0039b7755a4bb9bf147728293d7, type: 3}
       propertyPath: m_Name
       value: Enemy

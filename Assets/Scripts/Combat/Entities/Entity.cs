@@ -10,13 +10,13 @@ namespace Combat.Entities
     public class Entity : MonoBehaviour
     {
         // stats
-        [SerializeField] private List<MoveSettings> moveSettings;
+        [SerializeField] private List<Move> moves;
         [SerializeField] private int startingHealth = 5;
         [SerializeField] private Animation anim;
 
         private int _health;
         
-        public List<MoveSettings> GetAllMoveSettings => moveSettings;
+        public List<Move> GetAllMoves => moves;
 
         public bool Alive => _health > 0;
 
@@ -28,21 +28,21 @@ namespace Combat.Entities
 
         public IEnumerator UseRandomMove(Entity target)
         {
-            if (moveSettings.Count == 0)
+            if (moves.Count == 0)
             {
                 Debug.Log($"{name} had no moves available.");
                 yield break;
             }
             
-            int index = Random.Range(0, moveSettings.Count); // range is inclusive & exclusive respectively
-            MoveData moveData = moveSettings[index].MoveData;
-            yield return StartCoroutine(UseMove(moveData, target));
+            int index = Random.Range(0, moves.Count); // range is inclusive & exclusive respectively
+            Move move = moves[index];
+            yield return StartCoroutine(UseMove(move, target));
         }
-        public IEnumerator UseMove(MoveData moveData, Entity target)
+        public IEnumerator UseMove(Move move, Entity target)
         {
-            Debug.Log($"{name} used move '{moveData.name}'.");
+            Debug.Log($"{name} used move '{move.name}'.");
 
-            foreach (MoveData.Action action in moveData.actions)
+            foreach (Move.Action action in move.actions)
             {
                 if (action.animation != null)
                 {
@@ -53,9 +53,9 @@ namespace Combat.Entities
                     yield return new WaitForSeconds(0.25f);
                 }
 
-                if (action.type == MoveData.ActionType.Damage)
+                if (action.type == Move.ActionType.Damage)
                     target.DamageBy(action.amount);
-                else if (action.type == MoveData.ActionType.Healing)
+                else if (action.type == Move.ActionType.Healing)
                     HealBy(action.amount);
             }
         }

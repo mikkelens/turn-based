@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 937829ff2a234b2f8378472e409f3f13, type: 3}
-  m_Name: Generic damage move
+  m_Name: Generic Move 1
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: -458986465191143518, guid: 3575427bf1683ae43a66814c86d6e7e6, type: 3}
   moveData:

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937829ff2a234b2f8378472e409f3f13, type: 3}
+  m_Name: Generic Move 2
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: -458986465191143518, guid: 3575427bf1683ae43a66814c86d6e7e6, type: 3}
+  moveData:
+    name: damage 1
+    actions:
+    - type: 0
+      amount: 1
+      animation: {fileID: 0}

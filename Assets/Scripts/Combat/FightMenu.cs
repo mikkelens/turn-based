@@ -44,23 +44,23 @@ namespace Combat
             Player player = Player.Instance;
             if (player == null) return;
 
-            List<MoveSettings> moveSettings = player.GetAllMoveSettings;
+            List<Move> moveSettings = player.GetAllMoves;
             for (int i = 0; i < moveSettings.Count; i++)
             {
-                MoveSettings moveSetting = moveSettings[i];
+                Move move = moveSettings[i];
 
                 RectTransform parent = i % 2 == 0 ? topRow : bottomRow;
-                Button button = Instantiate(moveSetting.ButtonPrefab, parent); // generate new buttons
+                Button button = Instantiate(move.ButtonPrefab, parent); // generate new buttons
                 button.onClick.AddListener(
                     delegate
                     {
-                        FightManager.Instance.ChoosePlayerMove(moveSetting);
+                        FightManager.Instance.ChoosePlayerMove(move);
                     });
                 _buttons.Add(button);
                 
                 Text title = button.GetComponentInChildren<Text>();
                 if (title != null)
-                    title.text = moveSetting.MoveData.name;
+                    title.text = move.name;
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(moveMenu); // force update/refresh
         }

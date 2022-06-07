@@ -21,7 +21,7 @@ namespace Combat
         
         [SerializeField] private Enemy enemy;
         private Player _player;
-        private MoveData? _chosenMove;
+        private Move _chosenMove;
         
         private void Start()
         {
@@ -34,9 +34,9 @@ namespace Combat
             StartCoroutine(FightRoutine());
         }
         
-        public void ChoosePlayerMove(MoveSettings move)
+        public void ChoosePlayerMove(Move move)
         {
-            _chosenMove = move.MoveData;
+            _chosenMove = move;
         }
 
         private enum FightState
@@ -70,10 +70,8 @@ namespace Combat
 
             _chosenMove = null;
             yield return new WaitUntil(() => _chosenMove != null); // wait for player to choose move (happens through UI)
-            MoveData move = _chosenMove!.Value;
-            
             FightMenu.Instance.SetMenuVisible(false);
-            yield return StartCoroutine(_player.UseMove(move, enemy)); // wait for move to finish
+            yield return StartCoroutine(_player.UseMove(_chosenMove, enemy)); // wait for move to finish
         }
         private IEnumerator EnemyTurn()
         {
