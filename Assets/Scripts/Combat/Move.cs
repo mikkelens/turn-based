@@ -1,12 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Combat
 {
     [Serializable]
-    public struct Move // "Move", the actual values of a move
+    public struct MoveData // "Move", the actual values of a move
     {
         public string name;
-        public int damage;
-        public int healing;
+        public List<Action> actions;
+
+        // sub-datatypes
+        [Serializable]
+        public struct Action
+        {
+            public ActionType type;
+            public int amount;
+            public AnimationClip animation;
+        }
+        [Serializable]
+        public enum ActionType
+        {
+            Damage,
+            Healing
+        }
     }
 }

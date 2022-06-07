@@ -13,11 +13,12 @@ namespace Combat
         public static FightMenu Instance;
         private FightManager _fightManager;
         
-        [SerializeField] private RectTransform generalMenu;
         [SerializeField, Required] private RectTransform moveMenu;
+        [SerializeField, Required] private RectTransform topRow;
+        [SerializeField, Required] private RectTransform bottomRow;
 
 
-        private List<Button> _buttons;
+        private List<Button> _buttons = new();
 
         private void Awake()
         {
@@ -31,33 +32,44 @@ namespace Combat
             _fightManager = FightManager.Instance;
             if (_fightManager == null) Debug.Log("Fight manager missing!");
         }
-
-        [Button]
-        public void GenerateButtons()
+        
+        private void RegenerateButtons()
         {
-            DestroyAll(_buttons); // get rid of previous
+            foreach (Button button in _buttons)
+            {
+                _buttons.Remove(button);
+                Destroy(button.gameObject); // remove previous buttons
+            }
             
             Player player = Player.Instance;
             if (player == null) return;
-            _buttons = GenerateAll(player.GetAllMoveSettings); // get new
-        }
-        private void DestroyAll(List<Button> buttons)
-        {
-            foreach (Button button in buttons)
+
+            List<MoveSettings> moveSettings = player.GetAllMoveSettings;
+            for (int i = 0; i < moveSettings.Count; i++)
             {
-                Destroy(button);
+                MoveSettings moveSetting = moveSettings[i];
+                MoveData moveData = moveSetting.MoveData; // pull data out because of the way callback uses it
+                
+                RectTransform parent = i % 2 == 0 ? topRow : bottomRow;
+                Button button = Instantiate(moveSetting.ButtonPrefab, parent); // generate new buttons
+                button.onClick.AddListener(() => _fightManager.ChoosePlayerMove(moveData));
+                _buttons.Add(button);
+                
+                Text title = button.GetComponentInChildren<Text>();
+                if (title != null)
+                    title.text = moveData.name;
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(moveMenu); // force update/refresh
         }
-        private List<Button> GenerateAll(List<MoveSettings> moves)
+        
+        public void SetMenuVisible(bool show)
         {
-            List<Button> buttons = new();
-            foreach (MoveSettings move in moves)
-            {
-                Button button = Instantiate(move.ButtonPrefab, generalMenu).GetComponent<Button>();
-                button.onClick.AddListener(() => _fightManager.ChoosePlayerMove(move.Data));
-                buttons.Add(button);
-            }
-            return buttons;
+            if (show && Application.isPlaying) RegenerateButtons();
+            moveMenu.gameObject.SetActive(show);
         }
+        private bool ActiveMenu => moveMenu.gameObject.activeSelf;
+        // neat little inspector buttons
+        [ButtonGroup("toggle"), DisableIf("ActiveMenu")] private void ShowMenu() => SetMenuVisible(true);
+        [ButtonGroup("toggle"), EnableIf("ActiveMenu")] private void HideMenu() => SetMenuVisible(false);
     }
 }

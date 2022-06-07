@@ -36,7 +36,7 @@ namespace Structure
             _currentFightDetails = fightDetails;
         }
         
-        [Button, ShowIf("@_state == GameState.MapScreen"), DisableIf("@_currentFight == null")]  
+        [Button, ShowIf("@_state == GameState.MapScreen"), DisableIf("@_currentFightDetails == null")]  
         public void EnterFight()
         {
             if (_currentFightDetails == null) return;

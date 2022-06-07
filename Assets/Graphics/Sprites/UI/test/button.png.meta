@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 243bdb7cee5ef7042aa05afe9749c40c
+guid: 71d9ab84d362b2c40bed6a1e439df765
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,73 +104,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buttons_0
+      name: button_0
       rect:
         serializedVersion: 2
-        x: 308
-        y: 389
-        width: 639
-        height: 279
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a9ec87c1e1fd284fb03892479d13595
-      internalID: 1372608676
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_1
-      rect:
-        serializedVersion: 2
-        x: 969
-        y: 389
-        width: 643
-        height: 279
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ac0891cea8aae3459701412a5cddd47
-      internalID: -512400863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_2
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 103
-        width: 639
-        height: 279
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5636e572bb6ccf2439d93c5f08fff6cb
-      internalID: -1123413811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_3
-      rect:
-        serializedVersion: 2
-        x: 969
+        x: 968
         y: 103
         width: 643
         height: 279
@@ -181,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5f473812a06ef449ac0b65865ace24e
-      internalID: 32792486
+      spriteID: f3402c6e54275d348ab7361e462bedd4
+      internalID: 1722810554
       vertices: []
       indices: 
       edges: []
@@ -198,10 +135,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      buttons_2: -1123413811
-      buttons_0: 1372608676
-      buttons_1: -512400863
-      buttons_3: 32792486
+      button_0: 1722810554
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

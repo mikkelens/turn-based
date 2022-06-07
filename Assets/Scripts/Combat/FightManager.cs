@@ -21,7 +21,7 @@ namespace Combat
         
         [SerializeField] private Enemy enemy;
         private Player _player;
-        private Move? _chosenMove;
+        private MoveData? _chosenMove;
         
         private void Start()
         {
@@ -34,8 +34,7 @@ namespace Combat
             StartCoroutine(FightRoutine());
         }
         
-        [Button]
-        public void ChoosePlayerMove(Move move)
+        public void ChoosePlayerMove(MoveData move)
         {
             _chosenMove = move;
         }
@@ -46,7 +45,6 @@ namespace Combat
             Win,
             Loss,
         }
-        
         private IEnumerator FightRoutine()
         {
             FightState state = FightState.Fighting;
@@ -68,12 +66,14 @@ namespace Combat
         
         private IEnumerator PlayerTurn()
         {
+            FightMenu.Instance.SetMenuVisible(true);
+
             _chosenMove = null;
-            
-            // todo: show move options on screen
-            
             yield return new WaitUntil(() => _chosenMove != null); // wait for player to choose move (happens through UI)
-            yield return StartCoroutine(_player.UseMove(_chosenMove!.Value, enemy)); // wait for move to finish
+            MoveData move = _chosenMove!.Value;
+            
+            FightMenu.Instance.SetMenuVisible(false);
+            yield return StartCoroutine(_player.UseMove(move, enemy)); // wait for move to finish
         }
         private IEnumerator EnemyTurn()
         {

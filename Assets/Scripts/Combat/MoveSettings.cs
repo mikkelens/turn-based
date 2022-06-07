@@ -1,22 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Combat
 {
     [CreateAssetMenu(menuName = "Combat/Move", fileName = "Unnamed Move")]
     public class MoveSettings : ScriptableObject
     {
-        [SerializeField] private string moveName = "Unnamed move";
-        [SerializeField] private int moveDamage = 1;
-        [SerializeField] private int moveHealing = 0;
-        
-        [SerializeField] private GameObject buttonPrefab;
-        public GameObject ButtonPrefab => buttonPrefab;
+        public Button ButtonPrefab => buttonPrefab;
+        [SerializeField] private Button buttonPrefab;
 
-        public Move Data => new()
+        public MoveData MoveData => moveData;
+        [SerializeField] private MoveData moveData = new()
         {
-            name = moveName,
-            damage = moveDamage,
-            healing = moveHealing
+            name = "Unnamed move",
+            actions = new()
+            {
+                new MoveData.Action()
+                {
+                    type = MoveData.ActionType.Damage,
+                    amount = 1,
+                    animation = null,
+                }
+            }
         };
     }
 }

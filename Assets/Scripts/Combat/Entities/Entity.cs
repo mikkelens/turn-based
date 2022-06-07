@@ -12,44 +12,66 @@ namespace Combat.Entities
         // stats
         [SerializeField] private List<MoveSettings> moveSettings;
         [SerializeField] private int startingHealth = 5;
-        [SerializeField] private Animator animator;
+        [SerializeField] private Animation anim;
 
         private int _health;
         
         public List<MoveSettings> GetAllMoveSettings => moveSettings;
-        public List<Move> GetAllMoves => moveSettings.Select(settings => settings.Data).ToList();
 
-        public void Heal(int amount)
-        {
-            _health += amount;
-        }
-        public void Damage(int amount)
-        {
-            _health -= amount;
-        }
-        
         public bool Alive => _health > 0;
 
         [Button]
         public void ResetHealth()
         {
-            Debug.Log($"{name} health reset to {startingHealth.ToString()}, was {_health.ToString()}");
             _health = startingHealth;
         }
 
         public IEnumerator UseRandomMove(Entity target)
         {
-            if (moveSettings.Count != 0)
+            if (moveSettings.Count == 0)
             {
-                int index = Random.Range(0, moveSettings.Count - 1);
-                yield return StartCoroutine(UseMove(moveSettings[0].Data, target));
+                Debug.Log($"{name} had no moves available.");
+                yield break;
+            }
+            
+            int index = Random.Range(0, moveSettings.Count); // range is inclusive & exclusive respectively
+            MoveData moveData = moveSettings[index].MoveData;
+            yield return StartCoroutine(UseMove(moveData, target));
+        }
+        public IEnumerator UseMove(MoveData moveData, Entity target)
+        {
+            Debug.Log($"{name} used move '{moveData.name}'.");
+
+            foreach (MoveData.Action action in moveData.actions)
+            {
+                if (action.animation != null)
+                {
+                    yield return StartCoroutine(PlayAnimation(action.animation));
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0.25f);
+                }
+
+                if (action.type == MoveData.ActionType.Damage)
+                    target.DamageBy(action.amount);
+                else if (action.type == MoveData.ActionType.Healing)
+                    HealBy(action.amount);
             }
         }
-        public IEnumerator UseMove(Move move, Entity target)
+        private IEnumerator PlayAnimation(AnimationClip clip)
         {
-            target.Damage(move.damage);
-            Heal(move.healing);
-            yield break;
+            anim.Play(clip.name);
+            yield return new WaitForSeconds(clip.length);
+        }
+        
+        private void HealBy(int amount)
+        {
+            _health += amount;
+        }
+        private void DamageBy(int amount)
+        {
+            _health -= amount;
         }
     }
 }
