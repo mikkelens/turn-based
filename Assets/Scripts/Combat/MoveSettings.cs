@@ -10,7 +10,6 @@ namespace Combat
         public Button ButtonPrefab => buttonPrefab;
         [SerializeField] private Button buttonPrefab;
 
-        public MoveData MoveData => moveData;
         [SerializeField] private MoveData moveData = new()
         {
             name = "Unnamed move",
@@ -24,5 +23,7 @@ namespace Combat
                 }
             }
         };
+        
+        public MoveData MoveData => moveData;
     }
 }

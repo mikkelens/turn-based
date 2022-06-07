@@ -34,9 +34,9 @@ namespace Combat
             StartCoroutine(FightRoutine());
         }
         
-        public void ChoosePlayerMove(MoveData move)
+        public void ChoosePlayerMove(MoveSettings move)
         {
-            _chosenMove = move;
+            _chosenMove = move.MoveData;
         }
 
         private enum FightState

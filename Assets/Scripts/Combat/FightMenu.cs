@@ -37,10 +37,10 @@ namespace Combat
         {
             foreach (Button button in _buttons)
             {
-                _buttons.Remove(button);
                 Destroy(button.gameObject); // remove previous buttons
             }
-            
+            _buttons.Clear();
+
             Player player = Player.Instance;
             if (player == null) return;
 
@@ -48,16 +48,19 @@ namespace Combat
             for (int i = 0; i < moveSettings.Count; i++)
             {
                 MoveSettings moveSetting = moveSettings[i];
-                MoveData moveData = moveSetting.MoveData; // pull data out because of the way callback uses it
-                
+
                 RectTransform parent = i % 2 == 0 ? topRow : bottomRow;
                 Button button = Instantiate(moveSetting.ButtonPrefab, parent); // generate new buttons
-                button.onClick.AddListener(() => _fightManager.ChoosePlayerMove(moveData));
+                button.onClick.AddListener(
+                    delegate
+                    {
+                        FightManager.Instance.ChoosePlayerMove(moveSetting);
+                    });
                 _buttons.Add(button);
                 
                 Text title = button.GetComponentInChildren<Text>();
                 if (title != null)
-                    title.text = moveData.name;
+                    title.text = moveSetting.MoveData.name;
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(moveMenu); // force update/refresh
         }
