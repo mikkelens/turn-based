@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Combat.Entities;
 using Sirenix.OdinInspector;
@@ -8,9 +7,9 @@ using UnityEngine.UI;
 namespace Combat
 {
     [SelectionBase]
-    public class FightMenu : MonoBehaviour
+    public class FightMenuUI : MonoBehaviour
     {
-        public static FightMenu Instance;
+        public static FightMenuUI Instance;
         private FightManager _fightManager;
         
         [SerializeField, Required] private RectTransform moveMenu;

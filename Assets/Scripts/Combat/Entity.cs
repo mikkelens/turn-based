@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Combat.Entities
+namespace Combat
 {
     [SelectionBase]
     public class Entity : MonoBehaviour

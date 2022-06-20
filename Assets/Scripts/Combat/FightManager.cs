@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Combat.Entities;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Combat
@@ -19,7 +18,7 @@ namespace Combat
             else Debug.Log("Two fightmanagers in scene!");
         }
         
-        [SerializeField] private Enemy enemy;
+        public Enemy enemy;
         private Player _player;
         private Move _chosenMove;
         
@@ -66,11 +65,11 @@ namespace Combat
         
         private IEnumerator PlayerTurn()
         {
-            FightMenu.Instance.SetMenuVisible(true);
+            FightMenuUI.Instance.SetMenuVisible(true);
 
             _chosenMove = null;
             yield return new WaitUntil(() => _chosenMove != null); // wait for player to choose move (happens through UI)
-            FightMenu.Instance.SetMenuVisible(false);
+            FightMenuUI.Instance.SetMenuVisible(false);
             yield return StartCoroutine(_player.UseMove(_chosenMove, enemy)); // wait for move to finish
         }
         private IEnumerator EnemyTurn()
