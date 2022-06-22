@@ -8,15 +8,15 @@ namespace Combat
     [SelectionBase]
     public class Entity : MonoBehaviour
     {
-        // stats
+        [Header("Stats")]
         [SerializeField] private List<Move> moves;
         [SerializeField] private int startingHealth = 5;
         [SerializeField] private Animation anim;
 
         private int _health;
         
+        // getters
         public List<Move> GetAllMoves => moves;
-
         public bool Alive => _health > 0;
 
         [Button]
