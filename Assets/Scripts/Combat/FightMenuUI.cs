@@ -16,11 +16,16 @@ namespace Combat
         [SerializeField, Required] private RectTransform topRow;
         [SerializeField, Required] private RectTransform bottomRow;
 
+        [SerializeField] private AnimationClip fadeInAnimation;
+        [SerializeField] private AnimationClip fadeOutAnimation;
+
+        private Animation _anim;
 
         private List<Button> _buttons = new();
 
         private void Awake()
         {
+            _anim = GetComponent<Animation>();
             if (Instance == null)
             {
                 Instance = this;
@@ -31,6 +36,10 @@ namespace Combat
             _fightManager = FightManager.Instance;
             if (_fightManager == null) Debug.Log("Fight manager missing!");
         }
+        
+        // neat little inspector buttons
+        [ButtonGroup("toggle"), DisableIf("ActiveMenu")] private void ShowMenu() => SetMenuVisible(true);
+        [ButtonGroup("toggle"), EnableIf("ActiveMenu")] private void HideMenu() => SetMenuVisible(false);
         
         private void RegenerateButtons()
         {
@@ -70,8 +79,13 @@ namespace Combat
             moveMenu.gameObject.SetActive(show);
         }
         private bool ActiveMenu => moveMenu.gameObject.activeSelf;
-        // neat little inspector buttons
-        [ButtonGroup("toggle"), DisableIf("ActiveMenu")] private void ShowMenu() => SetMenuVisible(true);
-        [ButtonGroup("toggle"), EnableIf("ActiveMenu")] private void HideMenu() => SetMenuVisible(false);
+
+        public void PlayAnimation(AnimationClip clip)
+        {
+            _anim.Stop();
+            if (_anim == null) return;
+            _anim.clip = clip;
+            _anim.Play();
+        }
     }
 }

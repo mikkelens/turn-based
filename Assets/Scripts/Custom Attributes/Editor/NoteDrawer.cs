@@ -28,7 +28,7 @@ namespace Custom_Attributes
             rect.height = _mHeight;
             rect.y += Attribute.Padding * 0.5f;
             rect.StandardizeWidth();
-            EditorGUI.HelpBox(rect, Attribute.Text, MessageType.None);
+            EditorGUI.HelpBox(rect, Attribute.Text, Attribute.MessageType);
         }
     }
 }
