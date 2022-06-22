@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Custom_Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Combat
 {
@@ -9,12 +12,22 @@ namespace Combat
     public class Entity : MonoBehaviour
     {
         [Header("Stats")]
-        [SerializeField] private List<Move> moves;
-        [SerializeField] private int startingHealth = 5;
-        [SerializeField] private Animation anim;
-
-        private int _health;
         
+        [Note("Moves are the actions that the entity can take.")]
+        [SerializeField] private List<Move> moves;
+
+        [HorizontalLine(Thickness = 2f, Padding = 12f)]
+        
+        [SerializeField] private int startingHealth = 5;
+
+        private Animation _anim;
+        private int _health;
+
+        private void Awake()
+        {
+            _anim = GetComponent<Animation>();
+        }
+
         // getters
         public List<Move> GetAllMoves => moves;
         public bool Alive => _health > 0;
@@ -60,7 +73,7 @@ namespace Combat
         }
         private IEnumerator PlayAnimation(AnimationClip clip)
         {
-            anim.Play(clip.name);
+            _anim.Play(clip.name);
             yield return new WaitForSeconds(clip.length);
         }
         
